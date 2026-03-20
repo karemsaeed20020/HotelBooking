@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HotelBooking.Domain.Entities.Common
+{
+    public class AuditableEntity : BaseEntity
+    {
+        public string CreatedBy { get; set; } = default!;
+        public DateTime CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; } = default!;
+        public DateTime ModifiedDate { get; set; }
+    }
+}
