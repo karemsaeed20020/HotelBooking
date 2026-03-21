@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelBooking.Domain.Entities.Reservations
+namespace HotelBooking.Domain.Entities.Payments
 {
-    public enum CancellationStatus
+    public enum PaymentStatus
     {
         Pending,
-        Approved,
-        Denied
+        Completed,
+        Failed,
+        Refunded
     }
 }

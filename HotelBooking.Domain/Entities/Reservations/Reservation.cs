@@ -1,4 +1,5 @@
 ﻿using HotelBooking.Domain.Entities.Common;
+using HotelBooking.Domain.Entities.Payments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace HotelBooking.Domain.Entities.Reservations
         public Feedback? Feedback { get; set; }
 
         public ICollection<ReservationRoom> ReservationRooms { get; set; } = [];
+        public ICollection<Payment> Payments { get; set; } = [];
 
     }
 }

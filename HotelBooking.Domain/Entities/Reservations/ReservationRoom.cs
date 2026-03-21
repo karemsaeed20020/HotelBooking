@@ -1,4 +1,5 @@
 ﻿using HotelBooking.Domain.Entities.Common;
+using HotelBooking.Domain.Entities.Payments;
 using HotelBooking.Domain.Entities.Rooms;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace HotelBooking.Domain.Entities.Reservations
         public DateTime CheckOutDate { get; set; }
 
         public ICollection<ReservationGuest> ReservationGuests { get; set; } = [];
+        public ICollection<PaymentDetail> PaymentDetails { get; set; } = [];
 
     }
 }
