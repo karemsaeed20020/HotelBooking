@@ -3,6 +3,7 @@ using HotelBooking.API.CustomMiddlewares;
 using HotelBooking.API.DependencyInjection;
 using HotelBooking.API.Extensions;
 using HotelBooking.Infrastructure.DependencyInjection;
+using HotelBooking.Infrastructure.Identity.Secutiry;
 using System.Threading.Tasks;
 
 namespace HotelBooking.API
@@ -20,6 +21,8 @@ namespace HotelBooking.API
             builder.Services.AddOpenApi();
             builder.Services.AddPresentationServices(builder.Configuration);
             builder.Services.AddInfrastructureServices(builder.Configuration);
+
+            builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
 
             var app = builder.Build();
