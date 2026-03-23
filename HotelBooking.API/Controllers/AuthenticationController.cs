@@ -1,5 +1,6 @@
 ﻿using HotelBooking.Application.DTOs.UserDTOs;
 using HotelBooking.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,21 @@ namespace HotelBooking.API.Controllers
         public async Task<ActionResult<TokenResponseDTO>> Refresh(RefreshRequestDTO requestDTO)
         {
             var result = await _authenticationService.RefreshTokenAsync(requestDTO);
+            return HandleResult(result);
+        }
+        [Authorize]
+        [HttpPost("Logout")]
+        public async Task<IActionResult> LogoutAsync(RefreshRequestDTO requestDTO)
+        {
+            var result = await _authenticationService.LogoutAsync(requestDTO);
+            return HandleResult(result);
+        }
+        [Authorize]
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePasswordAsync(ChangePasswordDTO passwordDTO)
+        {
+            var userEmail = GetEmailFromToken();
+            var result = await _authenticationService.ChangePasswordAsync(userEmail, passwordDTO);
             return HandleResult(result);
         }
     }
