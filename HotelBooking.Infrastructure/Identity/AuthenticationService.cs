@@ -16,10 +16,12 @@ namespace HotelBooking.Infrastructure.Identity
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IJwtService _jwtService;
-        public AuthenticationService(UserManager<ApplicationUser> userManager, IJwtService jwtService)
+        private readonly IRefreshTokenService _refreshTokenService;
+        public AuthenticationService(UserManager<ApplicationUser> userManager, IJwtService jwtService, IRefreshTokenService refreshTokenService)
         {
             _userManager = userManager;
             _jwtService = jwtService;
+            _refreshTokenService = refreshTokenService;
         }
 
 
@@ -43,7 +45,8 @@ namespace HotelBooking.Infrastructure.Identity
                 return Error.Failure("RoleAssignmentFailed", "User Created But Role Assignment Failed");
             }
             var accessToken = await _jwtService.GenerateTokenAsync(user);
-            return new TokenResponseDTO { AccessToken = accessToken };
+            var refreshToken = await _refreshTokenService.GenerateRefreshTokenAsync(user.Id);
+            return new TokenResponseDTO { AccessToken = accessToken, RefreshToken = refreshToken };
         }
 
         public async Task<Result<TokenResponseDTO>> LoginAsync(LoginDTO loginDTO)
@@ -59,11 +62,35 @@ namespace HotelBooking.Infrastructure.Identity
                 return Error.InvalidCredentials("User.InvalidCrendentials");
             }
             var accessToken = await _jwtService.GenerateTokenAsync(user);
+            var refreshToken = await _refreshTokenService.GenerateRefreshTokenAsync(user.Id);
             return new TokenResponseDTO
             {
-                AccessToken = accessToken
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
             };
         }
 
+        public async Task<Result<TokenResponseDTO>> RefreshTokenAsync(RefreshRequestDTO refreshRequestDTO)
+        {
+            var userId = await _refreshTokenService.GetUserIdFromValidRefreshTokenAsync(refreshRequestDTO.RefreshToken);
+
+            if (userId is null)
+                return Error.InvalidCredentials("User.InvalidCrendentials", "Refresh Token Is Invalid");
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user is null)
+                return Error.InvalidCredentials("User.InvalidCrendentials");
+
+            await _refreshTokenService.RevokeRefreshTokenAsync(refreshRequestDTO.RefreshToken);
+
+            var newAccessToken = await _jwtService.GenerateTokenAsync(user);
+            var newRefreshToken = await _refreshTokenService.GenerateRefreshTokenAsync(user.Id);
+
+            return new TokenResponseDTO
+            {
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken
+            };
+        }
     }
 }

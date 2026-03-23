@@ -28,5 +28,12 @@ namespace HotelBooking.API.Controllers
             var result = await _authenticationService.LoginAsync(loginDTO);
             return HandleResult(result);
         }
+
+        [HttpPost("Refresh")]
+        public async Task<ActionResult<TokenResponseDTO>> Refresh(RefreshRequestDTO requestDTO)
+        {
+            var result = await _authenticationService.RefreshTokenAsync(requestDTO);
+            return HandleResult(result);
+        }
     }
 }

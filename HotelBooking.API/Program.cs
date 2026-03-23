@@ -28,7 +28,7 @@ namespace HotelBooking.API
             var app = builder.Build();
 
             await app.MigrateDatbaseAsync();
-            await app.MigrateDatbaseAsync();
+            await app.SeedDatabaseAsync();
             await app.SeedIdentityDatabaseAsync();
 
             app.UseMiddleware<ExceptionHandlerMiddleware>();
