@@ -36,8 +36,8 @@ namespace HotelBooking.API.DependencyInjection
                         new OpenApiSecurityScheme
                         {
                             Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
+                            {  Type = ReferenceType.SecurityScheme,
+
                                 Id = "Bearer"
                             }
                         },
@@ -50,7 +50,6 @@ namespace HotelBooking.API.DependencyInjection
                     Version = "v1"
                 });
             });
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -69,7 +68,7 @@ namespace HotelBooking.API.DependencyInjection
                 };
             });
 
-
+           
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
