@@ -39,5 +39,33 @@ namespace HotelBooking.API.Controllers
 
             return HandleResult(result);
         }
+        [HttpDelete("{roomTypeId}")]
+        public async Task<IActionResult> DeleteRoomType(int roomTypeId)
+        {
+            var result = await _mediator.Send(new DeleteRoomTypeCommand(roomTypeId));
+            return HandleResult(result);
+        }
+        [HttpPut("{roomTypeId}/toggle-active")]
+        public async Task<IActionResult> ToggleRoomType(int roomTypeId)
+        {
+            var result = await _mediator.Send(new ToggleRoomTypeActiveCommand(roomTypeId));
+            return HandleResult(result);
+        }
+        [HttpPut("{roomTypeId}")]
+        public async Task<IActionResult> UpdateRoomType(
+            int roomTypeId,
+            [FromBody] UpdateRoomTypeCommand command)
+        {
+            if (roomTypeId != command.RoomTypeId)
+            {
+                return BadRequest("RoomTypeId in URL does not match ID in body");
+            }
+            var wrapper = new UpdateRoomTypeWithUserCommand(command, GetEmailFromToken());
+
+            var result = await _mediator.Send(wrapper);
+
+            return HandleResult(result);
+        }
+
     }
 }
