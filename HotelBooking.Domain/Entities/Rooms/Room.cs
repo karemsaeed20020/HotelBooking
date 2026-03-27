@@ -9,7 +9,7 @@ namespace HotelBooking.Domain.Entities.Rooms
 {
     public class Room : AuditableEntity
     {
-        public int RoomNumber { get; set; } = default!;
+        public string RoomNumber { get; set; } = default!;
         public decimal Price { get; set; }
         public string BedType { get; set; } = default!;
         public string ViewType { get; set; } = default!;
