@@ -1,0 +1,22 @@
+﻿using HotelBooking.Domain.Contracts.Specifications;
+using HotelBooking.Domain.Entities.Rooms;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HotelBooking.Application.Specifications.RoomAmenitySpecifications
+{
+    internal class RoomAmenityCriteriaSpecification : ICriteriaSpecification<RoomAmenity>
+    {
+        public Expression<Func<RoomAmenity, bool>> Criteria {  get; set; }
+        private RoomAmenityCriteriaSpecification(Expression<Func<RoomAmenity, bool>> criteria)
+        {
+            Criteria = criteria;
+        }
+        public static RoomAmenityCriteriaSpecification ByAmenityId(int amenityId) => new(ra => ra.AmenityID == amenityId);
+        public static RoomAmenityCriteriaSpecification ByRoomTypeId(int roomTypeId) => new(ra => ra.RoomTypeID == roomTypeId);
+    }
+}
