@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Security.Claims;
 
 namespace HotelBooking.API.Controllers
 {
@@ -27,7 +28,17 @@ namespace HotelBooking.API.Controllers
 
             return Ok(result.Value);
         }
+        protected string GetEmailFromToken()
+        {
+            // Try both standard and custom claim types
+            var email = User.FindFirstValue("email")
+                        ?? User.FindFirstValue(System.Security.Claims.ClaimTypes.Email);
 
+            if (string.IsNullOrEmpty(email))
+                throw new UnauthorizedAccessException("Token missing email claim.");
+
+            return email;
+        }
         private ActionResult HandleProblem(IReadOnlyList<Error> errors)
         {
             if (errors.Count == 0)
