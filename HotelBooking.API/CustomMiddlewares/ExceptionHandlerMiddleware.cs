@@ -18,7 +18,8 @@ namespace HotelBooking.API.CustomMiddlewares
             {
                 await _next.Invoke(httpContext);
                 await HandleNotFoundEndpointAsync(httpContext);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "Something Went Wrong");
                 var problem = new ProblemDetails
@@ -33,6 +34,7 @@ namespace HotelBooking.API.CustomMiddlewares
 
             }
         }
+
 
         private static async Task HandleNotFoundEndpointAsync(HttpContext httpContext)
         {
