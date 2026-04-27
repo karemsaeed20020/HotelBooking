@@ -40,3 +40,21 @@ Provides a backend API to manage hotel operations:
 - Secure authentication and role-based access (**Admin / Manager / Guest**)
 
 ---
+
+---
+
+## 🧱 Architecture Overview
+
+This solution follows a **Layered Clean Architecture-style** structure:
+
+- **HotelBooking.Presentation**
+  - API Controllers, Middlewares, Extensions, DI, Program.cs
+- **HotelBooking.Application**
+  - Features (CQRS), DTOs, Validators, Services Interfaces, Specifications, MappingProfiles, Result Types
+- **HotelBooking.Infrastructure**
+  - DbContext, Migrations, Identity, Security (JWT), Repositories, UnitOfWork, DataSeed
+- **HotelBooking.Domain**
+  - Entities, Contracts, Domain Services, ValueObjects
+
+---
+
