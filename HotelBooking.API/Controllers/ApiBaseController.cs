@@ -1,5 +1,4 @@
 ﻿using HotelBooking.Application.Results;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
@@ -15,9 +14,10 @@ namespace HotelBooking.API.Controllers
             if (result.IsSuccess)
             {
                 return NoContent();
-            } else
+            }
+            else
             {
-                return  HandleProblem(result.Errors);
+                return HandleProblem(result.Errors);
             }
         }
 
@@ -39,6 +39,7 @@ namespace HotelBooking.API.Controllers
 
             return email;
         }
+        protected string GetUserIdFromToken() => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         private ActionResult HandleProblem(IReadOnlyList<Error> errors)
         {
             if (errors.Count == 0)
