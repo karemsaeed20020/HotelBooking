@@ -3,27 +3,25 @@ using HotelBooking.Domain.Entities.Guests;
 using HotelBooking.Domain.Entities.Payments;
 using HotelBooking.Domain.Entities.Reservations;
 using HotelBooking.Domain.Entities.Rooms;
+using HotelBooking.Infrastructure.Data.Configurations;
 using HotelBooking.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelBooking.Infrastructure.Data.DbContexts
 {
     public class HotelBookingDbContext : IdentityDbContext<ApplicationUser>
     {
         public HotelBookingDbContext(DbContextOptions<HotelBookingDbContext> options) : base(options)
-        {            
+        {
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.Entity<PaymentDetail>()
         .HasOne(pd => pd.ReservationRoom)
         .WithMany(rr => rr.PaymentDetails)
@@ -49,6 +47,7 @@ namespace HotelBooking.Infrastructure.Data.DbContexts
         public DbSet<CancellationPolicy> CancellationPolicies { get; set; }
         public DbSet<CancellationDetail> CancellationDetails { get; set; }
         public DbSet<CancellationCharge> CancellationCharges { get; set; }
+        public DbSet<Refund> Refunds { get; set; }
 
     }
 }
