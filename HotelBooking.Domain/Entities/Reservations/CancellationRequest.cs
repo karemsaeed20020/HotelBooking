@@ -1,9 +1,5 @@
 ﻿using HotelBooking.Domain.Entities.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HotelBooking.Domain.Entities.Payments;
 
 namespace HotelBooking.Domain.Entities.Reservations
 {
@@ -22,5 +18,6 @@ namespace HotelBooking.Domain.Entities.Reservations
 
         public ICollection<CancellationDetail> CancellationDetails { get; set; } = [];
         public CancellationCharge CancellationCharge { get; set; } = default!;
+        public ICollection<Refund> Refunds { get; set; } = [];
     }
 }

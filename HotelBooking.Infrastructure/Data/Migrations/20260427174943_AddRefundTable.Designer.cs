@@ -4,6 +4,7 @@ using HotelBooking.Infrastructure.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelBooking.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(HotelBookingDbContext))]
-    partial class HotelBookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260427174943_AddRefundTable")]
+    partial class AddRefundTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1088,9 +1091,8 @@ namespace HotelBooking.Infrastructure.Data.Migrations
             modelBuilder.Entity("HotelBooking.Domain.Entities.Payments.Refund", b =>
                 {
                     b.HasOne("HotelBooking.Domain.Entities.Reservations.CancellationRequest", "CancellationRequest")
-                        .WithMany("Refunds")
-                        .HasForeignKey("CancellationRequestId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .WithMany()
+                        .HasForeignKey("CancellationRequestId");
 
                     b.HasOne("HotelBooking.Domain.Entities.Payments.Payment", "Payment")
                         .WithMany()
@@ -1311,8 +1313,6 @@ namespace HotelBooking.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("CancellationDetails");
-
-                    b.Navigation("Refunds");
                 });
 
             modelBuilder.Entity("HotelBooking.Domain.Entities.Reservations.Reservation", b =>
