@@ -57,4 +57,78 @@ This solution follows a **Layered Clean Architecture-style** structure:
   - Entities, Contracts, Domain Services, ValueObjects
 
 ---
+---
+
+## 🗂️ Project Structure (Simplified)
+
+```text
+src/
+ ├─ HotelBooking.Presentation
+ │  ├─ Controllers
+ │  ├─ CustomMiddlewares
+ │  ├─ DependencyInjection
+ │  ├─ Extensions / Factories
+ │  ├─ appsettings.json
+ │  └─ Program.cs
+ │
+ ├─ HotelBooking.Application
+ │  ├─ Features
+ │  │  ├─ Amenities (Commands / Queries)
+ │  │  ├─ CancellationPolicies (Commands / Queries)
+ │  │  ├─ Cancellations
+ │  │  ├─ Countries
+ │  │  ├─ Feedbacks
+ │  │  ├─ HotelBooking
+ │  │  ├─ HotelSearch
+ │  │  ├─ Refunds
+ │  │  ├─ RoomAmenities
+ │  │  ├─ Rooms
+ │  │  ├─ RoomTypes
+ │  │  └─ States
+ │  ├─ DTOs
+ │  ├─ MappingProfiles (AutoMapper)
+ │  ├─ Specifications
+ │  ├─ Validators (FluentValidation)
+ │  ├─ Results (Result Pattern)
+ │  ├─ Interfaces / Services
+ │  └─ DependencyInjection
+ │
+ ├─ HotelBooking.Infrastructure
+ │  ├─ Data
+ │  │  ├─ DbContexts
+ │  │  ├─ Configurations (EF Fluent API)
+ │  │  ├─ Migrations
+ │  │  └─ DataSeed (JSON files + initializer)
+ │  ├─ Identity
+ │  │  ├─ Security (JwtService / JwtSettings / RefreshTokenService)
+ │  │  └─ Entities
+ │  ├─ Implementations (Repositories / UnitOfWork)
+ │  ├─ SpecificationEvaluator.cs
+ │  └─ DependencyInjection
+ │
+ └─ HotelBooking.Domain
+    ├─ Entities
+    ├─ Contracts
+    ├─ Services
+    └─ ValueObjects
+```  
+
+---
+## 🧩 API Modules Overview (What each module does)
+
+Below is a high-level, **module-based** explanation of the main controllers and their responsibilities.
+
+---
+
+### 🔐 Authentication Module (`AuthenticationController`)
+**Purpose:** Handles the full authentication lifecycle using **JWT + Refresh Tokens** with **ASP.NET Core Identity**.
+
+**Responsibilities:**
+- User registration & login.
+- Issuing **Access Tokens** + **Refresh Tokens**.
+- Refreshing expired access tokens securely.
+- Logout by invalidating refresh tokens.
+- Password change for authenticated users.
+
+---
 
