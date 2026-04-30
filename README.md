@@ -189,3 +189,32 @@ Below is a high-level, **module-based** explanation of the main controllers and 
   - a single amenity relation from a room type
 
 ---
+
+### 📅 Booking Module (`HotelBookingController`) — **Admin/Manager/Guest**
+**Purpose:** Core booking workflow: **pricing**, **reservation creation**, **guest assignment**, and **payments**.
+
+**Responsibilities:**
+- Calculate booking cost for selected room(s) & dates.
+- Create reservations for authenticated users.
+- Add guests to an existing reservation (with user context: id + email).
+- Process payments for reservations.
+- Update payment status (e.g., Paid, Pending, Failed, Refunded).
+
+---
+
+### 🔎 Search Module (`HotelSearchController`) — **Admin/Manager/Guest**
+**Purpose:** Provides various **read-only search capabilities** for rooms based on filters.
+
+**Responsibilities:**
+- Search available rooms within date ranges.
+- Filter by:
+  - price range
+  - room type name
+  - view type
+  - amenity name
+  - minimum rating
+- Provide room details + its amenities.
+- Supports custom multi-filter search using a unified filter model.
+
+---
+
