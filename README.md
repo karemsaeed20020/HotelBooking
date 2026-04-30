@@ -131,4 +131,37 @@ Below is a high-level, **module-based** explanation of the main controllers and 
 - Password change for authenticated users.
 
 ---
+---
+
+### 👥 Users & Roles Module (`UsersController`) — **Admin Only**
+**Purpose:** Admin dashboard backend for **managing users** and **role assignment**.
+
+**Responsibilities:**
+- CRUD operations for users (create, update, delete, view).
+- Assigning roles to users (Admin / Manager / Guest).
+- Ensuring only **Admins** can access sensitive user management functionality.
+
+---
+
+### 🏷️ Catalog Module: Room Types (`RoomTypesController`) — **Admin/Manager**
+**Purpose:** Manage the hotel’s **room type catalog** (e.g., Single, Double, Suite).
+
+**Responsibilities:**
+- Create/update/delete room types.
+- Enable/disable room types (active toggle).
+- Acts as the base classification layer used by rooms, pricing, booking rules, and availability.
+
+
+---
+
+### 🛏️ Inventory Module: Rooms (`RoomsController`) — **Admin/Manager**
+**Purpose:** Manage the actual **hotel rooms inventory**.
+
+**Responsibilities:**
+- Create/update/delete rooms (entities that can be booked).
+- Enable/disable rooms (active toggle).
+- List rooms with filtering/pagination (query params).
+- Acts as the primary resource used in availability and reservations.
+
+---
 
