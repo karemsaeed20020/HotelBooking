@@ -164,4 +164,28 @@ Below is a high-level, **module-based** explanation of the main controllers and 
 - Acts as the primary resource used in availability and reservations.
 
 ---
+### 🧰 Catalog Module: Amenities (`AmenitiesController`) — **Admin/Manager**
+**Purpose:** Manage amenity definitions (e.g., Wi-Fi, TV, Air Conditioning).
 
+**Responsibilities:**
+- Create/update/delete amenities.
+- Bulk create amenities (useful for seeding/admin setup).
+- Enable/disable amenities (active toggle).
+- Maintains a reusable list of amenity items used by multiple room types.
+
+---
+
+### 🔗 Relationship Module: Room Amenities (`RoomAmenitiesController`) — **Admin/Manager**
+**Purpose:** Handles the **many-to-many relation** between `RoomType` and `Amenity`.
+
+**Responsibilities:**
+- Attach amenities to a room type.
+- Bulk attach amenities to a room type.
+- Retrieve:
+  - amenities for a specific room type
+  - room types that contain a specific amenity
+- Remove:
+  - all amenities for a room type
+  - a single amenity relation from a room type
+
+---
