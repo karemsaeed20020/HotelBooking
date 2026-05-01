@@ -277,3 +277,25 @@ Below is a high-level, **module-based** explanation of the main controllers and 
   - Supports querying with params (pagination/filtering)
 
 ---
+## 🧠 Cross-Cutting Responsibilities (Shared Across Modules)
+
+### ✅ `ApiBaseController`
+A shared base controller that provides:
+- Standardized response handling using **Result / Result<T>**
+- Mapping domain/application errors → correct HTTP responses (ProblemDetails)
+- Extracting identity claims from JWT:
+  - `GetEmailFromToken()`
+  - `GetUserIdFromToken()`
+
+### ✅ Authorization (Roles)
+- **Admin**: full access (including Users module)
+- **Manager**: operational access (catalog, booking, refunds, etc.)
+- **Guest**: booking, search, feedback, cancellation requests
+
+### ✅ MediatR + CQRS
+All controllers delegate logic to:
+- Queries (read)
+- Commands (write)
+- Handlers in the Application layer
+
+---
