@@ -253,3 +253,27 @@ Below is a high-level, **module-based** explanation of the main controllers and 
 - Update refund status (e.g., Pending → Processed/Failed).
 
 ---
+### ⭐ Feedback Module (`FeedbackController`) — **Guest + Admin/Manager**
+**Purpose:** Manage customer feedback on reservations (rating + comment).
+
+**Responsibilities:**
+- Guests:
+  - Create feedback for their reservation.
+  - Update/delete their own feedback (ownership by userId).
+- Admin/Manager:
+  - View a single feedback item.
+  - View all feedback records for reporting/monitoring.
+
+---
+
+### 🌍 Location Modules: Countries & States (`CountriesController`, `StatesController`) — **Admin/Manager**
+**Purpose:** Manage geographic reference data used across the system.
+
+**Responsibilities:**
+- Countries:
+  - CRUD + active toggle
+- States:
+  - CRUD + active toggle
+  - Supports querying with params (pagination/filtering)
+
+---
