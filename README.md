@@ -217,4 +217,39 @@ Below is a high-level, **module-based** explanation of the main controllers and 
 - Supports custom multi-filter search using a unified filter model.
 
 ---
+---
 
+### 📜 Policies Module: Cancellation Policies (`CancellationPoliciesController`) — **Admin/Manager**
+**Purpose:** Manage cancellation policies that define **penalty rules** over time.
+
+**Responsibilities:**
+- Create/update/delete cancellation policies.
+- List & retrieve policy details.
+- Acts as the rule source for cancellation charge calculations.
+
+---
+
+### Cancellations Module (`CancellationsController`) — **Guest + Admin/Manager**
+**Purpose:** Handles the cancellation lifecycle: **showing policies**, **calculating charges**, **creating requests**, and **admin review**.
+
+**Responsibilities:**
+- For Guests:
+  - View active cancellation policies.
+  - Calculate cancellation charges before submitting a request.
+  - Create cancellation requests (linked to the authenticated user).
+- For Admin/Manager:
+  - View all cancellation requests (filtered/paginated via request object).
+  - Review cancellation requests (approve/reject) with admin tracking.
+
+
+---
+
+### 💸 Refunds Module (`RefundsController`) — **Admin/Manager**
+**Purpose:** Operational module to process refunds after cancellations.
+
+**Responsibilities:**
+- Retrieve cancellations eligible for refund (pending refunds queue).
+- Process refund (admin action with adminId tracking).
+- Update refund status (e.g., Pending → Processed/Failed).
+
+---
