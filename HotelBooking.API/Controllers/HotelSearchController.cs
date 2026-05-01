@@ -14,7 +14,21 @@ namespace HotelBooking.API.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("Available")]
+        public async Task<ActionResult<IEnumerable<RoomSearchDTO>>> SearchAvailableRooms([FromQuery] RoomsAvailabilityFilter filter)
+        {
+            var result = await _mediator.Send(new SearchAvailableRoomsQuery(filter));
 
+            return HandleResult(result);
+        }
+
+        [HttpGet("Price-Range")]
+        public async Task<ActionResult<IEnumerable<RoomSearchDTO>>> SearchByPriceRange([FromQuery] RoomsPriceRangeFilter filter)
+        {
+            var result = await _mediator.Send(new SearchPriceRangeQuery(filter));
+
+            return HandleResult(result);
+        }
 
         [HttpGet("Type")]
         public async Task<ActionResult<IEnumerable<RoomSearchDTO>>> SearchByRoomType(string roomTypeName)
@@ -48,6 +62,28 @@ namespace HotelBooking.API.Controllers
             return HandleResult(result);
         }
 
+        [HttpGet("Rooms/{roomId}")]
+        public async Task<ActionResult<RoomSearchWithAmenitiesDTO>> GetRoomDetails(int roomId)
+        {
+            var result = await _mediator.Send(new SearchRoomDetailsWithAmenitiesQuery(roomId));
 
+            return HandleResult(result);
+        }
+
+        [HttpGet("Rooms/{roomId}/Amenities")]
+        public async Task<ActionResult<IEnumerable<AmenitySearchDTO>>> GetAmenitiesForRoom(int roomId)
+        {
+            var result = await _mediator.Send(new GetAmenitiesForRoomQuery(roomId));
+
+            return HandleResult(result);
+        }
+
+        [HttpGet("Custom")]
+        public async Task<ActionResult<IEnumerable<RoomSearchDTO>>> SearchCustom([FromQuery] RoomSearchFilter filter)
+        {
+            var result = await _mediator.Send(new SearchRoomsCustomQuery(filter));
+
+            return HandleResult(result);
+        }
     }
 }
