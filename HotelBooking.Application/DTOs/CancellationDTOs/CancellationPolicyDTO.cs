@@ -1,5 +1,4 @@
-﻿
-namespace HotelBooking.Application.DTOs.CancellationDTOs
+﻿namespace HotelBooking.Application.DTOs.CancellationDTOs
 {
     public record CancellationPolicyDTO
     {

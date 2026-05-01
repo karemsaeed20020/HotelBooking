@@ -5,7 +5,6 @@ using HotelBooking.API.Extensions;
 using HotelBooking.Application.DependencyInjection;
 using HotelBooking.Infrastructure.DependencyInjection;
 using HotelBooking.Infrastructure.Identity.Secutiry;
-using System.Threading.Tasks;
 
 namespace HotelBooking.API
 {
@@ -43,7 +42,14 @@ namespace HotelBooking.API
                 app.UseSwaggerUI();
             }
 
+            var asm = typeof(HotelBooking.Application.AssemblyReference).Assembly;
 
+            var handlers = asm.GetTypes()
+                .Where(t => t.GetInterfaces()
+                .Any(i => i.Name.Contains("IRequestHandler")))
+                .ToList();
+
+            Console.WriteLine($"Handlers found: {handlers.Count}");
 
             app.UseHttpsRedirection();
             app.UseAuthentication();
